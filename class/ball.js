@@ -2,7 +2,7 @@ class Ball{
     constructor(x,y,radius){
         balls.push(this)
         this.sprite=new Sprite(x,y,radius)
-        this.sprite.debug=true
+        this.sprite.color=255
         this.id=undefined
         let ids=[]
         balls.forEach(ball=>{
@@ -15,15 +15,6 @@ class Ball{
         this.sprite.bounciness=1
         this.rad=radius
         this.orig={x:x,y:y}
-        let pixels=`
-..11
-.1111
-111111
-111111
-.1111
-..11`
-        let palette={'1':color(255,255,255)}
-        this.sprite.img=spriteArt(pixels,round(radius)/6,palette)
         balls.forEach(ball=>{
                 this.sprite.overlaps(ball.sprite)
         })
@@ -37,11 +28,10 @@ class Ball{
             this.sprite.x=paddle.sprite.x
             this.sprite.y=this.orig.y
         }
-        this.sprite.rotation=0
-        if(this.sprite.y>height){
+        if(this.sprite.y>height+this.rad/2){
             this.removed=true
         }
-        if(this.sprite.collides(edges)){
+        if(this.sprite.collides(edges)||this.sprite.collides(paddle.sprite)){
             let temp=random(sounds.ball_hit)
             temp.play()
         }
@@ -49,7 +39,7 @@ class Ball{
         text(this.id,this.sprite.x,this.sprite.y+this.rad/2,15)*/
     }
     start(){
-        this.sprite.velocity.x=Math.floor(random(-4,5))
-        this.sprite.velocity.y=Math.floor(random(-2,-5))
+        this.sprite.direction=random(-125,-45)
+        this.sprite.speed=longSide/200
     }
 }
