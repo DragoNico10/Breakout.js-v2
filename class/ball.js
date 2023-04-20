@@ -1,8 +1,10 @@
 class Ball{
-    constructor(x,y,radius){
+    constructor(x,y,radius,vX=0,vY=0,type='normal'){
         balls.push(this)
         this.sprite=new Sprite(x,y,radius)
-        this.sprite.color=255
+        this.sprite.vel.x=vX
+        this.sprite.vel.y=vY
+        this.type=type
         this.id=undefined
         let ids=[]
         balls.forEach(ball=>{
@@ -11,13 +13,17 @@ class Ball{
         let tempId=1
         for(tempId;ids.includes(tempId);tempId=Math.floor(random(1,1001))){console.log('Id exists:'+tempId)}
         this.id=tempId
-        console.log(tempId)
         this.sprite.bounciness=1
         this.rad=radius
         this.orig={x:x,y:y}
         balls.forEach(ball=>{
                 this.sprite.overlaps(ball.sprite)
         })
+        if(type=='normal'){
+            this.sprite.color=255
+        }else if(type=='explosive'){
+            this.sprite.color='orange'
+        }
     }
     draw(){
         if(this.removed==true){

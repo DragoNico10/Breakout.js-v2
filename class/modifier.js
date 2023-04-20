@@ -3,7 +3,7 @@ class Modifier{
         modifiers.push(this)
         this.sprite=new Sprite(x,y,40*longSide/1025,40*longSide/1025)
         this.sprite.vel.y=longSide/300
-        this.sprite.debug=true
+        this.id=ballID
         let int=Math.floor(random(0,101))
         if (int > 98) {
             this.type=5
@@ -23,113 +23,117 @@ class Modifier{
         else if (int < 20) {
             this.type=0
         }
-        //this.setDrawType(this.type)
+        this.setDrawType(this.type)
         balls.forEach(ball=>{
             this.sprite.overlaps(ball.sprite)
         })
         this.sprite.collides(paddle.sprite)
     }
     setDrawType(type){
-        if (type === 0) {
-            this.sprite.draw = () => {
-                push()
-                fill('green')
-                rectMode(CENTER)
-                noStroke()
-                rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
-                fill('white')
-                ellipse(0, -10 * (longSide / 1025), 7 * (longSide / 1025))
-                ellipse(10 * (longSide / 1025), 10 * (longSide / 1025), 7 * (longSide / 1025))
-                ellipse(-10 * (longSide / 1025), 10 * (longSide / 1025), 7 * (longSide / 1025))
-                stroke(255)
-                strokeWeight(2 * (longSide / 1025))
-                line(4 * (longSide / 1025), -5 * (longSide / 1025), 9 * (longSide / 1025), 8 * (longSide / 1025))
-                line(-4 * (longSide / 1025), -5 * (longSide / 1025), -9 * (longSide / 1025), 8 * (longSide / 1025))
-                pop()
-            }  
-        }
-        if (type === 1) {
-            this.sprite.draw = () => {
-                push()
-                rectMode(CENTER)
-                fill('green')
-                noStroke()
-                rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
-                fill('white')
-                ellipse(10 * (longSide / 1025), -10 * (longSide / 1025), 7 * (longSide / 1025))
-                ellipse(-10 * (longSide / 1025), -10 * (longSide / 1025), 7 * (longSide / 1025))
-                rect(0 * (longSide / 1025), 10 * (longSide / 1025), 25 * (longSide / 1025), 5 * (longSide / 1025))
-                stroke(255)
-                strokeWeight(2 * (longSide / 1025))
-                line(10 * (longSide / 1025), -10 * (longSide / 1025), 3 * (longSide / 1025), 5 * (longSide / 1025))
-                line(-10 * (longSide / 1025), -10 * (longSide / 1025), -3 * (longSide / 1025), 5 * (longSide / 1025))
-                pop()
-            }
-        }
-        if (type === 2) {
-             
-            this.sprite.draw = () => {
-                push()
-                rectMode(CENTER)
-                fill('cyan')
-                noStroke()
-                rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
-                fill('white')
-                triangle(5 * (longSide / 1025), 0, 0, -20 * (longSide / 1025), -5 * (longSide / 1025), 0)
-                triangle(0, 0, 10 * (longSide / 1025), -15 * (longSide / 1025), -5 * (longSide / 1025), -5 * (longSide / 1025))
-                triangle(0, 3 * (longSide / 1025), 0, -7 * (longSide / 1025), 15 * (longSide / 1025), -5 * (longSide / 1025))
-                triangle(15 * (longSide / 1025), 15 * (longSide / 1025), 0, -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
-                triangle(5 * (longSide / 1025), 0, 0, 15 * (longSide / 1025), -5 * (longSide / 1025), 0)
-                triangle(5 * (longSide / 1025), 0, -10 * (longSide / 1025), -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
-                triangle(15 * (longSide / 1025), 15 * (longSide / 1025), 0, -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
-                triangle(0, 3 * (longSide / 1025), 0, -7 * (longSide / 1025), -15 * (longSide / 1025), 3 * (longSide / 1025))
-                fill('orange')
-                ellipse(0.5 * (longSide / 1025), -2.5 * (longSide / 1025), 7 * (longSide / 1025))
-                pop()
-            }
-        }
-        if (type === 3) {
-             
-            this.sprite.draw = () => {
-                push()
-                rectMode(CENTER)
-                fill('blue')
-                rectMode(CENTER)
-                noStroke()
-                rect(0, 0, 40 * (longSide / 1025))
-                fill('white')
-                rect(0, 0, 15 * (longSide / 1025), 5 * (longSide / 1025))
-                stroke(255)
-                strokeWeight(2 * (longSide / 1025))
-                line(10 * (longSide / 1025), 0, 15 * (longSide / 1025), 0)
-                line(15 * (longSide / 1025), 0, 12 * (longSide / 1025), -3 * (longSide / 1025))
-                line(15 * (longSide / 1025), 0, 12 * (longSide / 1025), 3 * (longSide / 1025))
-                line(-10 * (longSide / 1025), 0, -15 * (longSide / 1025), 0)
-                line(-15 * (longSide / 1025), 0, -12 * (longSide / 1025), -3 * (longSide / 1025))
-                line(-15 * (longSide / 1025), 0, -12 * (longSide / 1025), 3 * (longSide / 1025))
-                pop()
-            }
-        }
-        if (type === 4) {
-             
-            this.sprite.draw = () => {
-                push()
-                fill('red')
-                rectMode(CENTER)
-                noStroke()
-                rect(0, 0, 40 * (longSide / 1025))
-                fill('white')
-                rect(0, 0, 15 * (longSide / 1025), 5 * (longSide / 1025))
-                stroke(255)
-                strokeWeight(2 * (longSide / 1025))
-                line(10 * (longSide / 1025), 0, 15 * (longSide / 1025), 0)
-                line(10 * (longSide / 1025), 0, 13 * (longSide / 1025), -3 * (longSide / 1025))
-                line(10 * (longSide / 1025), 0, 13 * (longSide / 1025), 3 * (longSide / 1025))
-                line(-10 * (longSide / 1025), 0, -15 * (longSide / 1025), 0)
-                line(-10 * (longSide / 1025), 0, -13 * (longSide / 1025), -3 * (longSide / 1025))
-                line(-10 * (longSide / 1025), 0, -13 * (longSide / 1025), 3 * (longSide / 1025))
-                pop()
-            }
+        switch(type){
+            case 0:
+                this.sprite.draw = () => {
+                    push()
+                    fill('green')
+                    rectMode(CENTER)
+                    noStroke()
+                    rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
+                    fill('white')
+                    ellipse(0, -10 * (longSide / 1025), 7 * (longSide / 1025))
+                    ellipse(10 * (longSide / 1025), 10 * (longSide / 1025), 7 * (longSide / 1025))
+                    ellipse(-10 * (longSide / 1025), 10 * (longSide / 1025), 7 * (longSide / 1025))
+                    stroke(255)
+                    strokeWeight(2 * (longSide / 1025))
+                    line(4 * (longSide / 1025), -5 * (longSide / 1025), 9 * (longSide / 1025), 8 * (longSide / 1025))
+                    line(-4 * (longSide / 1025), -5 * (longSide / 1025), -9 * (longSide / 1025), 8 * (longSide / 1025))
+                    pop()
+                } 
+                break
+            case 1:
+                this.sprite.draw = () => {
+                    push()
+                    rectMode(CENTER)
+                    fill('green')
+                    noStroke()
+                    rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
+                    fill('white')
+                    ellipse(10 * (longSide / 1025), -10 * (longSide / 1025), 7 * (longSide / 1025))
+                    ellipse(-10 * (longSide / 1025), -10 * (longSide / 1025), 7 * (longSide / 1025))
+                    rect(0 * (longSide / 1025), 10 * (longSide / 1025), 25 * (longSide / 1025), 5 * (longSide / 1025))
+                    stroke(255)
+                    strokeWeight(2 * (longSide / 1025))
+                    line(10 * (longSide / 1025), -10 * (longSide / 1025), 3 * (longSide / 1025), 5 * (longSide / 1025))
+                    line(-10 * (longSide / 1025), -10 * (longSide / 1025), -3 * (longSide / 1025), 5 * (longSide / 1025))
+                    pop()
+                }
+                break
+            case 2:
+                
+                this.sprite.draw = () => {
+                    push()
+                    rectMode(CENTER)
+                    fill('cyan')
+                    noStroke()
+                    rect(0, 0, 40 * (longSide / 1025), 40 * (longSide / 1025))
+                    fill('white')
+                    triangle(5 * (longSide / 1025), 0, 0, -20 * (longSide / 1025), -5 * (longSide / 1025), 0)
+                    triangle(0, 0, 10 * (longSide / 1025), -15 * (longSide / 1025), -5 * (longSide / 1025), -5 * (longSide / 1025))
+                    triangle(0, 3 * (longSide / 1025), 0, -7 * (longSide / 1025), 15 * (longSide / 1025), -5 * (longSide / 1025))
+                    triangle(15 * (longSide / 1025), 15 * (longSide / 1025), 0, -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
+                    triangle(5 * (longSide / 1025), 0, 0, 15 * (longSide / 1025), -5 * (longSide / 1025), 0)
+                    triangle(5 * (longSide / 1025), 0, -10 * (longSide / 1025), -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
+                    triangle(15 * (longSide / 1025), 15 * (longSide / 1025), 0, -15 * (longSide / 1025), -5 * (longSide / 1025), 0)
+                    triangle(0, 3 * (longSide / 1025), 0, -7 * (longSide / 1025), -15 * (longSide / 1025), 3 * (longSide / 1025))
+                    fill('orange')
+                    ellipse(0.5 * (longSide / 1025), -2.5 * (longSide / 1025), 7 * (longSide / 1025))
+                    pop()
+                }
+                break
+            case 3:
+                
+                this.sprite.draw = () => {
+                    push()
+                    rectMode(CENTER)
+                    fill('blue')
+                    rectMode(CENTER)
+                    noStroke()
+                    rect(0, 0, 40 * (longSide / 1025))
+                    fill('white')
+                    rect(0, 0, 15 * (longSide / 1025), 5 * (longSide / 1025))
+                    stroke(255)
+                    strokeWeight(2 * (longSide / 1025))
+                    line(10 * (longSide / 1025), 0, 15 * (longSide / 1025), 0)
+                    line(15 * (longSide / 1025), 0, 12 * (longSide / 1025), -3 * (longSide / 1025))
+                    line(15 * (longSide / 1025), 0, 12 * (longSide / 1025), 3 * (longSide / 1025))
+                    line(-10 * (longSide / 1025), 0, -15 * (longSide / 1025), 0)
+                    line(-15 * (longSide / 1025), 0, -12 * (longSide / 1025), -3 * (longSide / 1025))
+                    line(-15 * (longSide / 1025), 0, -12 * (longSide / 1025), 3 * (longSide / 1025))
+                    pop()
+                }
+                break
+            case 4:
+                
+                this.sprite.draw = () => {
+                    push()
+                    fill('red')
+                    rectMode(CENTER)
+                    noStroke()
+                    rect(0, 0, 40 * (longSide / 1025))
+                    fill('white')
+                    rect(0, 0, 15 * (longSide / 1025), 5 * (longSide / 1025))
+                    stroke(255)
+                    strokeWeight(2 * (longSide / 1025))
+                    line(10 * (longSide / 1025), 0, 15 * (longSide / 1025), 0)
+                    line(10 * (longSide / 1025), 0, 13 * (longSide / 1025), -3 * (longSide / 1025))
+                    line(10 * (longSide / 1025), 0, 13 * (longSide / 1025), 3 * (longSide / 1025))
+                    line(-10 * (longSide / 1025), 0, -15 * (longSide / 1025), 0)
+                    line(-10 * (longSide / 1025), 0, -13 * (longSide / 1025), -3 * (longSide / 1025))
+                    line(-10 * (longSide / 1025), 0, -13 * (longSide / 1025), 3 * (longSide / 1025))
+                    pop()
+                }
+                break
+            default:
+                break
         }
     }
 }

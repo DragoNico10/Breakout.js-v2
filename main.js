@@ -1,5 +1,5 @@
 // create all variables
-var balls=[], blocks_padded=[], paddle, modifiers=[], sounds={modifier_get:[], ball_hit:[], game_over:[]}, gameState=0,edges,blocksLeft=0,blocks_pos=[]
+var balls=[], blocks_padded=[], paddle, modifiers=[], sounds={modifier_get:[], ball_hit:[], game_over:[],explotion:undefined}, gameState=0,edges,blocksLeft=0,blocks_pos=[]
 //if height is longer than width, and viceversa
 var longSide
 var pressing=1
@@ -10,11 +10,12 @@ var preload=()=>{
     for (let index = 1; index < 7; index++) {
         sounds.ball_hit.push(loadSound('sounds/ball_hit'+index+'.wav'))
     }
+    sounds.explotion=loadSound('sounds/explotion.wav')
 }
 //Setup function
 var setup=()=>{
     //initialize
-    new Canvas(innerWidth/3,innerHeight/3,'pixelated')
+    new Canvas(innerWidth/2.5,innerHeight/2.5,'pixelated')
     longSide=width>height?width:height
     //making the game feel more retro by simulating low frame rate
     frameRate(20)
@@ -68,15 +69,16 @@ var draw=()=>{
         temp.start()
     }*/
     frames+=1
-    strokeWeight(1)
+    strokeWeight(0)
+    cpu.train()
     if(balls.length==0){
         gameOver()
+        cpu.nextEpisode()
     }
 }
 
 var gameOver=()=>{
     gameState=0
-    CPU.epochDone=true
     new Ball(width/2, height-(height/10),longSide/30)
     blocks_padded.forEach(row => {
         row.forEach(block => {

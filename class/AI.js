@@ -9,12 +9,13 @@ class CPU{
         this.exploration=0.1
         this.discount=0.99
         this.learnRate=0.001
-        this.epochs=1000
-        this.maxStepsPerEpoch=100
-        this.epoch=0
-        this.epochDone=false
+        this.episodes=1000
+        this.maxStepsPerEpisode=100
+        this.episode=0
     }
     train(){
-
+    }
+    nextEpisode(){
+        this.episode++
     }
 }
