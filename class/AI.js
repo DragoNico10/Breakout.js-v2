@@ -1,7 +1,7 @@
 class CPU{
     constructor(){
         this.model=tf.sequential()
-        this.model.add(tf.layers.dense({inputShape:[4], units:32, activation:'relu'}))
+        this.model.add(tf.layers.dense({inputShape:[50], units:32, activation:'relu'}))
         this.model.add(tf.layers.dense({units: 2, activation: 'linear'}))
         this.model.compile({loss: 'meanSquaredError', optimizer: tf.train.adam()})
         this.model.summary()

@@ -16,6 +16,7 @@ class Ball{
         this.sprite.bounciness=1
         this.rad=radius
         this.orig={x:x,y:y}
+        this.a=255
         balls.forEach(ball=>{
                 this.sprite.overlaps(ball.sprite)
         })
@@ -24,8 +25,16 @@ class Ball{
         }else if(type=='explosive'){
             this.sprite.color='orange'
         }
+        this.state='normal'
+        this.origPos=undefined
     }
     draw(){
+        if(this.sprite.vel.x==0&&this.type!='explosive'){
+            this.sprite.vel.x+=random(-1,1)
+        }
+        if(this.sprite.vel.y==0){
+            this.sprite.vel.y+=random(-1,1)
+        }
         if(this.removed==true){
             this.sprite.remove()
             balls.splice(balls.indexOf(this),1)
@@ -41,11 +50,32 @@ class Ball{
             let temp=random(sounds.ball_hit)
             temp.play()
         }
+        if(this.state=='exploding'){
+            this.sprite.radius<27300/longSide?this.sprite.radius+=5000/longSide:this.state='decaying'
+            this.sprite.x=this.origPos[0]
+            this.sprite.y=this.origPos[1]
+        }
+        if(this.state=='decaying'){
+            if(this.a>0){
+                this.a-=10000/longSide
+                this.sprite.color=color(255,165,0,this.a)
+                this.sprite.x=this.origPos[0]
+                this.sprite.y=this.origPos[1]
+            }else{
+                this.removed=true
+                this.state='removing'
+            }
+        }
         /*fill(255)
         text(this.id,this.sprite.x,this.sprite.y+this.rad/2,15)*/
     }
     start(){
         this.sprite.direction=random(-125,-45)
         this.sprite.speed=longSide/200
+    }
+    explode(orig){
+        this.type='explotion'
+        this.state='exploding'
+        this.origPos=[orig.x,orig.y]
     }
 }

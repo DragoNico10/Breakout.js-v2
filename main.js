@@ -43,7 +43,8 @@ var setup=()=>{
     
     gameState=1
     balls[0].start()
-
+    userStartAudio()
+    console.log(`Hey there user!`)
 }
 //count the frames that have passed
 let frames=0
@@ -62,6 +63,9 @@ var draw=()=>{
         row.forEach(block=>{
             block.run()
         })
+    })
+    modifiers.forEach(mod=>{
+        mod.run()
     })
     //to experiment what happens when more balls are on screen
     /*if(frames%10==0&&gameState==1){

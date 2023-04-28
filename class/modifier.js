@@ -2,8 +2,11 @@ class Modifier{
     constructor(x,y,ballID){
         modifiers.push(this)
         this.sprite=new Sprite(x,y,40*longSide/1025,40*longSide/1025)
-        this.sprite.vel.y=longSide/300
+        this.mainVel=longSide/300
+        this.x=x
+        this.y=y
         this.id=ballID
+        this.removed=false
         let int=Math.floor(random(0,101))
         if (int > 98) {
             this.type=5
@@ -28,6 +31,19 @@ class Modifier{
             this.sprite.overlaps(ball.sprite)
         })
         this.sprite.collides(paddle.sprite)
+    }
+    run(){
+        if(this.y>height+40*longSide/1025){
+            this.removed=true
+        }
+        this.y+=this.mainVel*2
+        this.sprite.y=this.y
+        this.sprite.x=this.x
+        this.sprite.rotation=0
+        if(this.removed==true){
+            modifiers.splice(modifiers.indexOf(this),1)
+            this.sprite.remove()
+        }
     }
     setDrawType(type){
         switch(type){
