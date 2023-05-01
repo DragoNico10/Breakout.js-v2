@@ -12,7 +12,6 @@ class Paddle{
         }
         modifiers.forEach(modifier => {
             if(this.sprite.collides(modifier.sprite)){
-                console.log('collide')
                 switch(modifier.type){
                     case 0:
                         let target
@@ -22,9 +21,14 @@ class Paddle{
                                 break
                             }
                         }
-                        if(!target.sprite.removed){
-                            new Ball(target.sprite.x,target.sprite.y,longSide/30,width/400,-height/400)
-                            new Ball(target.sprite.x,target.sprite.y,longSide/30,-width/400,-height/400)
+                        if(target){
+                            if(!target.sprite.removed){
+                                new Ball(target.sprite.x,target.sprite.y,longSide/30,width/400,-height/400)
+                                new Ball(target.sprite.x,target.sprite.y,longSide/30,-width/400,-height/400)
+                            }else{
+                                new Ball(width/2,height/2,longSide/30,width/400,-height/400)
+                                new Ball(width/2,height/2,longSide/30,-width/400,-height/400)
+                            }
                         }else{
                             new Ball(width/2,height/2,longSide/30,width/400,-height/400)
                             new Ball(width/2,height/2,longSide/30,-width/400,-height/400)

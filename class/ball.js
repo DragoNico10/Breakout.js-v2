@@ -1,6 +1,6 @@
 class Ball{
     constructor(x,y,radius,vX=0,vY=0,type='normal'){
-        balls.push(this)
+        if(!(balls.length>5)){balls.push(this)
         this.sprite=new Sprite(x,y,radius)
         this.sprite.vel.x=vX
         this.sprite.vel.y=vY
@@ -11,7 +11,7 @@ class Ball{
             ids.push(ball.id)
         })
         let tempId=1
-        for(tempId;ids.includes(tempId);tempId=Math.floor(random(1,1001))){console.log('Id exists:'+tempId)}
+        for(tempId;ids.includes(tempId);tempId=Math.floor(random(1,1001))){/*Do nothing*/}
         this.id=tempId
         this.sprite.bounciness=1
         this.rad=radius
@@ -24,9 +24,15 @@ class Ball{
             this.sprite.color=255
         }else if(type=='explosive'){
             this.sprite.color='orange'
+            edges.forEach(edge=>{
+                this.sprite.overlaps(edge)
+            })
         }
+        modifiers.forEach(mod => {
+            this.sprite.overlaps(mod.sprite)
+        });
         this.state='normal'
-        this.origPos=undefined
+        this.origPos=undefined}
     }
     draw(){
         if(this.sprite.vel.x==0&&this.type!='explosive'){
@@ -50,14 +56,21 @@ class Ball{
             let temp=random(sounds.ball_hit)
             temp.play()
         }
+        if(this.type=='explosive'){
+            edges.forEach(edge=>{
+                if(this.sprite.overlaps(edge)){
+                    setTimeout(()=>{this.removed=true},150)
+                }
+            })
+        }
         if(this.state=='exploding'){
-            this.sprite.radius<27300/longSide?this.sprite.radius+=5000/longSide:this.state='decaying'
+            this.sprite.radius<10000/height?this.sprite.radius+=3000/height:this.state='decaying'
             this.sprite.x=this.origPos[0]
             this.sprite.y=this.origPos[1]
         }
         if(this.state=='decaying'){
             if(this.a>0){
-                this.a-=10000/longSide
+                this.a-=25
                 this.sprite.color=color(255,165,0,this.a)
                 this.sprite.x=this.origPos[0]
                 this.sprite.y=this.origPos[1]

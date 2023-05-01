@@ -43,7 +43,6 @@ var setup=()=>{
     
     gameState=1
     balls[0].start()
-    userStartAudio()
     console.log(`Hey there user!`)
 }
 //count the frames that have passed
