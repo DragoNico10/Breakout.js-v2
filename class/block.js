@@ -14,9 +14,10 @@ class Block{
                         let temp=random(sounds.ball_hit)
                         temp.play()
                         this.removed=true
-                    }else if(ball.type=='explosive'){
+                    }else if(ball.type==='explosive'){
                         sounds.explotion.play()
                         ball.explode()
+                        ball.explode(ball.sprite.pos)
                         this.removed=true
                     }else if(ball.type=='explotion'){
                         this.removed=true
