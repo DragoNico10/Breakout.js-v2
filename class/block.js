@@ -14,11 +14,12 @@ class Block{
                         let temp=random(sounds.ball_hit)
                         temp.play()
                         this.removed=true
-                    }else if(ball.type='explosive'){
+                    }else if(ball.type=='explosive'){
                         sounds.explotion.play()
-                        ball.type='explotionRadius'
-                        let grow=setInterval(()=>{ball.sprite.w+=5/longSide},1)
-                        setTimeout(()=>{grow.stop()})
+                        ball.explode()
+                        this.removed=true
+                    }else if(ball.type=='explotion'){
+                        this.removed=true
                     }
                     if(Math.floor(random(0,101))>70){
                         new Modifier(this.sprite.x,this.sprite.y,ball.id)

@@ -14,7 +14,7 @@ class Modifier{
         else if (int > 55) {
             this.type=3
         }
-        else if (int > 35) {
+        else if (int > 35) { 
             this.type=2
         }
         else if (int > 20) {
